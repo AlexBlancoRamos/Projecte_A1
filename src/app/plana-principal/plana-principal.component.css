@@ -1,0 +1,152 @@
+header{
+  width: 100%;
+  height: 7%;
+  background-color: white;
+  display: inline-block;
+  border: solid black 1px;
+}
+
+nav{ width: 100%;
+  height: 6%;
+  background-color: grey;
+  display: inline-block;
+  border: solid black 1px;
+}
+
+#logo {
+  width: 5%;
+  height: 75%;
+  display: inline-block;
+  float: left;
+}
+
+
+.container{
+  width: 30%;
+  margin-top: 20px;
+  float: left;
+  display:inline-block;
+}
+
+#nom_usuario{
+  background-color: white;
+  margin-left: 88%;
+}
+
+#logout{
+  float: right;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 1px;
+  text-align: center;
+  align-items: center;
+  background-color:white;
+  border: solid black 1px;
+}
+
+#register{
+  float: right;
+  margin-right: 5%;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 1px;
+  text-align: center;
+  align-items: center;
+  background-color:white;
+  border: solid black 1px;
+  margin-top: 27px;
+}
+
+ul{
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0px;
+  text-align: center;
+  align-items: center;
+  background-color:white;
+  margin-top: 20px;
+}
+
+#menu ul li {
+  border: solid black 1px;
+}
+
+ul{background-color:black;}
+
+a{display:block;
+  text-decoration:none;
+  color:black;}
+
+li{
+  flex-grow: 1;
+}
+.navega:hover  {
+  text-decoration:none;
+  background-color:white;
+  text-color: white;
+}
+
+
+
+.search-box{
+  width: 33%;
+  position: relative;
+  display: flex;
+  float: right;
+}
+.search-input{
+  border: 4px solid #111d5e;
+  border-radius:10px 0 0 10px ;
+  border-right: 4px;
+  outline: none;
+  font-size: 20px;
+  color: black;
+  background: none;
+}
+.search-button{
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  border: 4px solid #111d5e;
+  border-radius: 0 10px 10px 0 ;
+  border-left: none;
+  background: none;
+  font-size: 20px;
+  border-left: 4px solid #111d5e;
+}
+
+#logout{
+  float: right;
+  margin-right: 5%;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 1px;
+  text-align: center;
+  align-items: center;
+  background-color:white;
+  border: solid black 1px;
+  margin-top: 27px;
+}
+
+
+
+
+
+
+
+footer {
+  width: 100%;
+  height: 5%;
+  background-color: white;
+  float: left;
+  border: solid black 1px;
+  margin-top: 1%;
+}
+
+footer p {
+  text-align: center;
+}
