@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {io} from "socket.io-client";
-import {Socket} from "ngx-socket-io";
 
 @Component({
   selector: 'app-plana-principal',
@@ -9,14 +8,23 @@ import {Socket} from "ngx-socket-io";
 })
 export class PlanaPrincipalComponent {
 
+  socket: any;
+
   constructor() {
 
-    const socket = io("ws://localhost:3000");
+    this.socket = io("http://localhost:8888", { transports : ['websocket']});
 
-    socket.on("hello", (arg) => {
+    this.socket.on("hello", (arg: any) => {
       console.log(arg);
-    })
+    });
 
-    socket.emit("howdy", "stranger")
+  }
+
+  requestCodiPeli() {
+    this.socket.emit("RequestCodiPeli", 4);
+
+    this.socket.on("CodiPeli", (args: any) => {
+      console.log(args);
+    });
   }
 }
