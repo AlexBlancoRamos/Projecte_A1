@@ -29,7 +29,7 @@
   <tr>
     <ng-container *ngFor="let video of videoList">
       <p (click)="changeOpenState()">{{video.title}}</p>
-      <ng-container *ngIf="opened">
+      <ng-container *ngIf="video.opened">
         <img src="assets/loading.gif" alt="loading gif">
         <ng-container *ngIf="verified">
 <!--          <video src=""></video>-->
