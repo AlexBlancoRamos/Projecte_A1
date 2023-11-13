@@ -22,11 +22,12 @@ export class PlanaPrincipalComponent {
     });
 
     this.getVideoListServer();
-
+    this.videoList.forEach(element => console.log(element.title))
   }
 
   getVideoListServer() {
-    this.socket.on("videoList", (videoObj: any[]) => {
+    this.socket.emit("RequestVideo", "");
+    this.socket.on("VideoList", (videoObj: any[]) => {
       videoObj.forEach(element => {
         this.videoList.push(element)
       })
