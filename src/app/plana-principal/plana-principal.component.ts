@@ -9,6 +9,9 @@ import {io} from "socket.io-client";
 export class PlanaPrincipalComponent {
 
   socket: any;
+  videoList: any[] = [];
+  opened: boolean = false;
+  verified: boolean = false;
 
   constructor() {
 
@@ -18,6 +21,16 @@ export class PlanaPrincipalComponent {
       console.log(arg);
     });
 
+    this.getVideoListServer();
+
+  }
+
+  getVideoListServer() {
+    this.socket.on("videoList", (videoObj: any[]) => {
+      videoObj.forEach(element => {
+        this.videoList.push(element)
+      })
+    })
   }
 
   requestCodiPeli() {
@@ -26,5 +39,9 @@ export class PlanaPrincipalComponent {
     this.socket.on("CodiPeli", (args: any) => {
       console.log(args);
     });
+  }
+
+  changeOpenState() {
+    this.opened = !this.opened;
   }
 }
