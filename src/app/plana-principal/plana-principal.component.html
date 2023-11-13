@@ -22,18 +22,18 @@
 
 <button (click)="requestCodiPeli()">TEST</button>
 
-<video width="1000px" height="1000px">
-  <source src="http://192.168.56.1:3000/C:\Users\marcr\OneDrive\Escritorio\1r DAM\LEA\UF1- Entorns de desenvolupament\VideoPlayerServer\src\assets\Trailer_de_Pocoyo_y_La_Liga_De_Los_Super_Amigos_CARICATURAS_y_DIBUJOS_ANIMADOS_para_ninos_720p.mp4" type="video/mp4">
-
-</video>
-
-
+<!--<video width="1000px" height="1000px">-->
+<!--  <source src="http://localhost:3000/src/assets/Trailer_de_Pocoyo_y_La_Liga_De_Los_Super_Amigos_CARICATURAS_y_DIBUJOS_ANIMADOS_para_ninos_720p.mp4" type="video/mp4">-->
+<!--</video>-->
 <table>
   <tr>
     <ng-container *ngFor="let video of videoList">
-      <p (click)="changeOpenState()">{{video}}</p>
+      <p (click)="changeOpenState()">{{video.title}}</p>
       <ng-container *ngIf="opened">
-
+        <img src="assets/loading.gif" alt="loading gif">
+        <ng-container *ngIf="verified">
+<!--          <video src=""></video>-->
+        </ng-container>
       </ng-container>
     </ng-container>
   </tr>
