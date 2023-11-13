@@ -42,7 +42,7 @@ export class PlanaPrincipalComponent {
     });
   }
 
-  changeOpenState() {
+  requestServerVideo() {
     this.opened = !this.opened;
   }
 }
