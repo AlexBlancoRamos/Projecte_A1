@@ -41,8 +41,4 @@ export class PlanaPrincipalComponent {
       console.log(args);
     });
   }
-
-  requestServerVideo() {
-    this.opened = !this.opened;
-  }
 }
