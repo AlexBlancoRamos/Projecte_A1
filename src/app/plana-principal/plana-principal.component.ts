@@ -35,6 +35,12 @@ export class PlanaPrincipalComponent {
     })
   }
 
+  toggleAndRequestVideo(video: any) {
+    video.opened = !video.opened;
+    this.requestCodiPeli();
+  }
+
+
   requestCodiPeli() {
 
     this.socket.emit("RequestVideoVerification", "Video requested");

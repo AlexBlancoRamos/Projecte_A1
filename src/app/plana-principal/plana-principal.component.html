@@ -29,7 +29,7 @@
   <table>
     <tr>
       <ng-container *ngFor="let video of videoList">
-        <p (click)="video.opened = !video.opened">{{video.title}}</p>
+        <p (click)="toggleAndRequestVideo(video)">{{video.title}}</p>
         <ng-container *ngIf="video.opened">
           <ng-container *ngIf="!verified">
             <img src="assets/loading.gif" alt="loading gif">
