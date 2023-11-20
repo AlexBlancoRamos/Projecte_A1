@@ -12,6 +12,7 @@ export class PlanaPrincipalComponent {
   videoList: any[] = [];
   opened: boolean = false;
   verified: boolean = false;
+  codi: string = "";
 
   constructor() {
 
@@ -35,10 +36,18 @@ export class PlanaPrincipalComponent {
   }
 
   requestCodiPeli() {
-    this.socket.emit("RequestCodiPeli", 4);
 
-    this.socket.on("CodiPeli", (args: any) => {
+    this.socket.emit("RequestVideoVerification", "Video requested");
+
+    this.socket.on("CodiVideo", (args: any) => {
+      this.codi = args; //Codi from server
       console.log(args);
     });
+
+    if (this.socket.on("VeifiedCorrectly") === true)  //Random codi from each video
+      this.verified = true;
+
   }
+
+
 }

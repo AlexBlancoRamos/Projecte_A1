@@ -31,9 +31,13 @@
       <ng-container *ngFor="let video of videoList">
         <p (click)="video.opened = !video.opened">{{video.title}}</p>
         <ng-container *ngIf="video.opened">
-          <img src="assets/loading.gif" alt="loading gif">
+          <ng-container *ngIf="!verified">
+            <img src="assets/loading.gif" alt="loading gif">
+            {{codi}}
+          </ng-container>
           <ng-container *ngIf="verified">
-            <!--          <video src=""></video>-->
+<!--            <img src="assets/fotos/logoooo.png"/>-->
+<!--            <video src=""></video>-->
           </ng-container>
         </ng-container>
       </ng-container>
