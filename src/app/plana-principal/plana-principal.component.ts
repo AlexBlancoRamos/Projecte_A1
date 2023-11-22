@@ -16,7 +16,7 @@ export class PlanaPrincipalComponent {
 
   constructor() {
 
-    this.socket = io("http://localhost:8888", { transports : ['websocket']});
+    this.socket = io("http://169.254.180.117:8888", { transports : ['websocket']});
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
@@ -50,8 +50,13 @@ export class PlanaPrincipalComponent {
       console.log(args);
     });
 
-    if (this.socket.on("VeifiedCorrectly") === true)  //Random codi from each video
+    let socketVerifiedResponse = this.socket.on("VerifiedCorrectly", (response) => response);
+    console.log("TEST     |     " + socketVerifiedResponse);
+    if (socketVerifiedResponse === true) {
+      //Random codi from each video
       this.verified = true;
+      console.log("this.verified: " , this.verified);
+    }
 
   }
 
