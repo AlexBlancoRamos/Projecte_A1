@@ -12,10 +12,11 @@ export class PlanaPrincipalComponent {
   videoList: any[] = [];
   opened: boolean = false;
   verified: boolean = false;
+  codi: string = "";
 
   constructor() {
 
-    this.socket = io("http://localhost:8888", { transports : ['websocket']});
+    this.socket = io("http://169.254.180.117:8888", { transports : ['websocket']});
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
@@ -34,11 +35,30 @@ export class PlanaPrincipalComponent {
     })
   }
 
-  requestCodiPeli() {
-    this.socket.emit("RequestCodiPeli", 4);
+  toggleAndRequestVideo(video: any) {
+    video.opened = !video.opened;
+    this.requestCodiPeli();
+  }
 
-    this.socket.on("CodiPeli", (args: any) => {
+
+  requestCodiPeli() {
+
+    this.socket.emit("RequestVideoVerification", "Video requested");
+
+    this.socket.on("CodiVideo", (args: any) => {
+      this.codi = args; //Codi from server
       console.log(args);
     });
+
+    let socketVerifiedResponse = this.socket.on("VerifiedCorrectly", (response) => response);
+    console.log("TEST     |     " + socketVerifiedResponse);
+    if (socketVerifiedResponse === true) {
+      //Random codi from each video
+      this.verified = true;
+      console.log("this.verified: " , this.verified);
+    }
+
   }
+
+
 }
