@@ -20,28 +20,35 @@
 
 </header>
 
-<button id="test" (click)="requestCodiPeli()">TEST</button>
+<button id="test" (click)="openVideoList()">TEST</button>
 
 <div style="display: flex; flex-direction: column; min-height: 80vh;">
   <div style="flex: 1; display: flex; flex-direction: column;">
     <div style="display: flex" *ngIf="showDiv">
-  <table>
-    <tr>
-      <ng-container *ngFor="let video of videoList">
-        <p (click)="toggleAndRequestVideo(video)">{{video.title.split('.')[0].replace('_', " ").split('720p')[0].replace("-", " ")}}</p>
-        <ng-container *ngIf="video.opened">
-          <ng-container *ngIf="!verified">
-            <img src="assets/loading.gif" alt="loading gif">
-            {{codi}}
+      <table>
+        <tr>
+          <ng-container *ngFor="let video of videoList; let i of videoList">
+            <p (click)="toggleAndRequestVideo(video)">
+              {{video.title.
+              split('.')[0]
+              .replace('_', " ")
+              .split('720p')[0]
+              .replace("-", " ")}}
+            </p>
+            <ng-container *ngIf="video.opened">
+              <ng-container *ngIf="!verified">
+                <img src="assets/loading.gif" alt="loading gif">
+                {{codi}}
+              </ng-container>
+              <ng-container *ngIf="verified">
+                <video id="{{i}}" controls style="width: 700px; max-width: 100%">
+                  <source src="http://169.254.180.117:3000/{{video.title}}">
+                </video>
+              </ng-container>
+            </ng-container>
           </ng-container>
-          <ng-container *ngIf="verified">
-<!--            <img src="assets/fotos/logoooo.png"/>-->
-            <video src="http://169.254.180.117/assets/{{video.title}}"></video>
-          </ng-container>
-        </ng-container>
-      </ng-container>
-    </tr>
-  </table>
+        </tr>
+      </table>
     </div>
   </div>
 

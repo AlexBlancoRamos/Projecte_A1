@@ -24,27 +24,33 @@ export class PlanaPrincipalComponent {
     });
 
     this.getVideoListServer();
-    this.videoList.forEach(element => console.log(element.title))
+    this.videoList.forEach(element => console.log(element.title));
   }
 
   getVideoListServer() {
     this.socket.emit("RequestVideo", "");
     this.socket.on("VideoList", (videoObj: any[]) => {
       videoObj.forEach(element => {
-        this.videoList.push(element)
+        this.videoList.push(element);
       })
     })
   }
 
   async toggleAndRequestVideo(video: any) {
     video.opened = !video.opened;
-    let temp = await this.requestCodiPeli();
-    this.validateRequest(temp);
+    let codiPeli = await this.requestCodiPeli();
+    //TEST
+    // this.verified = true;
+    // this.getVideoFromServer()
+    this.validateRequest(codiPeli);
+  }
+
+  openVideoList() {
+    this.showDiv = !this.showDiv;
   }
 
 
   requestCodiPeli() {
-    this.showDiv = true;
     this.socket.emit("RequestVideoVerification", "Video requested");
 
     this.socket.on("CodiVideo", (args: any) => {
@@ -63,11 +69,9 @@ export class PlanaPrincipalComponent {
 
   validateRequest(code: string) {
     if (code === "true") {
-      //Random codi from each video
       this.verified = true;
       console.log("this.verified: " , this.verified);
     }
   }
-
 
 }
