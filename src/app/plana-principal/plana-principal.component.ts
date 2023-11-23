@@ -12,6 +12,7 @@ export class PlanaPrincipalComponent {
   videoList: any[] = [];
   opened: boolean = false;
   verified: boolean = false;
+  showDiv = false;
 
   constructor() {
 
@@ -35,6 +36,7 @@ export class PlanaPrincipalComponent {
   }
 
   requestCodiPeli() {
+    this.showDiv = true;
     this.socket.emit("RequestCodiPeli", 4);
 
     this.socket.on("CodiPeli", (args: any) => {

@@ -12,35 +12,31 @@
     </div>
   </div>
 
-  <ul id="register">
-    <li class="navega"><a routerLink="/registre" routerLinkActive="active" href="Registre">IniciarSessión</a></li>
-  </ul>
-
-  <br>
-
 </header>
 
-<button (click)="requestCodiPeli()">TEST</button>
+<button id="test" (click)="requestCodiPeli()">TEST</button>
 
-<!--<video width="1000px" height="1000px">-->
-<!--  <source src="http://localhost:3000/src/assets/Trailer_de_Pocoyo_y_La_Liga_De_Los_Super_Amigos_CARICATURAS_y_DIBUJOS_ANIMADOS_para_ninos_720p.mp4" type="video/mp4">-->
-<!--</video>-->
-<div style="display: flex">
-  <table>
-    <tr>
-      <ng-container *ngFor="let video of videoList">
-        <p (click)="video.opened = !video.opened">{{video.title}}</p>
-        <ng-container *ngIf="video.opened">
-          <img src="assets/loading.gif" alt="loading gif">
-          <ng-container *ngIf="verified">
-            <!--          <video src=""></video>-->
+<div style="display: flex; flex-direction: column; min-height: 80vh;">
+
+  <div style="flex: 1; display: flex; flex-direction: column;">
+    <div style="display: flex" *ngIf="showDiv">
+      <table>
+        <tr>
+          <ng-container *ngFor="let video of videoList">
+            <p (click)="video.opened = !video.opened">{{video.title}}</p>
+            <ng-container *ngIf="video.opened">
+              <img src="assets/loading.gif" alt="loading gif">
+              <ng-container *ngIf="verified">
+                <!-- <video src=""></video> -->
+              </ng-container>
+            </ng-container>
           </ng-container>
-        </ng-container>
-      </ng-container>
-    </tr>
-  </table>
-</div>
+        </tr>
+      </table>
+    </div>
+  </div>
 
-<footer>
-  <p>Pagina creada per Ismael Naciri, Marc Rubio y Alex Blanco</p>
-</footer>
+  <footer>
+    <p>Pagina creada por Ismael Naciri, Marc Rubio y Alex Blanco</p>
+  </footer>
+</div>
