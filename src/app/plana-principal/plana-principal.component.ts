@@ -35,9 +35,10 @@ export class PlanaPrincipalComponent {
     })
   }
 
-  toggleAndRequestVideo(video: any) {
+  async toggleAndRequestVideo(video: any) {
     video.opened = !video.opened;
-    this.requestCodiPeli();
+    let temp = await this.requestCodiPeli();
+    this.validateRequest(temp);
   }
 
 
@@ -47,17 +48,24 @@ export class PlanaPrincipalComponent {
 
     this.socket.on("CodiVideo", (args: any) => {
       this.codi = args; //Codi from server
-      console.log(args);
+      console.log("Random Code: " + args);
     });
 
-    let socketVerifiedResponse = this.socket.on("VerifiedCorrectly", (response) => response);
-    console.log("TEST     |     " + socketVerifiedResponse);
-    if (socketVerifiedResponse === true) {
+    let socketVerifiedResponse;
+    this.socket.on("VerifiedCorrectly", (response) => {
+      console.log("GG   |   " + response);
+      socketVerifiedResponse = response;
+    });
+
+    return socketVerifiedResponse;
+  }
+
+  validateRequest(code: string) {
+    if (code === "true") {
       //Random codi from each video
       this.verified = true;
       console.log("this.verified: " , this.verified);
     }
-
   }
 
 

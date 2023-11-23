@@ -29,7 +29,7 @@
   <table>
     <tr>
       <ng-container *ngFor="let video of videoList">
-        <p (click)="toggleAndRequestVideo(video)">{{video.title}}</p>
+        <p (click)="toggleAndRequestVideo(video)">{{video.title.split('.')[0].replace('_', " ").split('720p')[0].replace("-", " ")}}</p>
         <ng-container *ngIf="video.opened">
           <ng-container *ngIf="!verified">
             <img src="assets/loading.gif" alt="loading gif">
@@ -37,7 +37,7 @@
           </ng-container>
           <ng-container *ngIf="verified">
 <!--            <img src="assets/fotos/logoooo.png"/>-->
-            <video src="http://169.254.180.117/assets/Trailer_de_Pocoyo_y_La_Liga_De_Los_Super_Amigos_CARICATURAS_y_DIBUJOS_ANIMADOS_para_ninos_720p.mp4"></video>
+            <video src="http://169.254.180.117/assets/{{video.title}}"></video>
           </ng-container>
         </ng-container>
       </ng-container>
