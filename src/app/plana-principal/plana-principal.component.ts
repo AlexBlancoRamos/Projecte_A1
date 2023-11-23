@@ -13,6 +13,7 @@ export class PlanaPrincipalComponent {
   opened: boolean = false;
   verified: boolean = false;
   codi: string = "";
+  showDiv = false;
 
   constructor() {
 
@@ -43,7 +44,7 @@ export class PlanaPrincipalComponent {
 
 
   requestCodiPeli() {
-
+    this.showDiv = true;
     this.socket.emit("RequestVideoVerification", "Video requested");
 
     this.socket.on("CodiVideo", (args: any) => {
