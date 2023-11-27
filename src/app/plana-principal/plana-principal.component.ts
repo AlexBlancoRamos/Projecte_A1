@@ -17,7 +17,7 @@ export class PlanaPrincipalComponent {
 
   constructor() {
 
-    this.socket = io("http://192.168.16.204:8888", { transports : ['websocket']});
+    this.socket = io("http://192.168.56.2:8888", { transports : ['websocket']});
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
@@ -39,11 +39,11 @@ export class PlanaPrincipalComponent {
 
   async toggleAndRequestVideo(video: any) {
     video.opened = !video.opened;
-    let codiPeli = await this.requestCodiPeli();
+    let verificacionBoolean = await this.getServerVerification();
     //TEST
     // this.verified = true;
     // this.getVideoFromServer()
-    this.validateRequest(codiPeli);
+    this.validateRequest(verificacionBoolean);
   }
 
   openVideoList() {
@@ -58,18 +58,19 @@ export class PlanaPrincipalComponent {
       this.codi = args; //Codi from server
       console.log("Random Code: " + args);
     });
+  }
 
+  getServerVerification(){
     let socketVerifiedResponse;
     this.socket.on("VerifiedCorrectly", (response) => {
       console.log("GG   |   " + response);
       socketVerifiedResponse = response;
     });
-
     return socketVerifiedResponse;
   }
 
-  validateRequest(code: string) {
-    if (code === "true") {
+  validateRequest(socketVerifiedResponse: boolean) {
+    if (socketVerifiedResponse) {
       this.verified = true;
       console.log("this.verified: " , this.verified);
     }
