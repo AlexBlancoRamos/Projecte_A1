@@ -102,6 +102,22 @@ li{
   z-index: 1000;
 }
 
+#titulos {
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: default;
+}
+
+#gif{
+  height: 50%;
+  width: 50%;
+}
+
+#titulos:hover {
+  background-color: #BDBDBD; /* Cambia el color de fondo al pasar el ratón sobre el elemento */
+}
+
 .overlay {
   display: none;
   position: fixed;
