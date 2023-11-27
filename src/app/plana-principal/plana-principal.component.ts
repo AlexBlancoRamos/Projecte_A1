@@ -13,6 +13,7 @@ export class PlanaPrincipalComponent {
   opened: boolean = false;
   verified: boolean = false;
   codi: string = "";
+  showDiv = false;
 
   constructor() {
 
@@ -23,42 +24,54 @@ export class PlanaPrincipalComponent {
     });
 
     this.getVideoListServer();
-    this.videoList.forEach(element => console.log(element.title))
+    this.videoList.forEach(element => console.log(element.title));
   }
 
   getVideoListServer() {
     this.socket.emit("RequestVideo", "");
     this.socket.on("VideoList", (videoObj: any[]) => {
       videoObj.forEach(element => {
-        this.videoList.push(element)
+        this.videoList.push(element);
       })
     })
   }
 
-  toggleAndRequestVideo(video: any) {
+  async toggleAndRequestVideo(video: any) {
     video.opened = !video.opened;
-    this.requestCodiPeli();
+    let codiPeli = await this.requestCodiPeli();
+    //TEST
+    // this.verified = true;
+    // this.getVideoFromServer()
+    this.validateRequest(codiPeli);
+  }
+
+  openVideoList() {
+    this.showDiv = !this.showDiv;
   }
 
 
   requestCodiPeli() {
-
     this.socket.emit("RequestVideoVerification", "Video requested");
 
     this.socket.on("CodiVideo", (args: any) => {
       this.codi = args; //Codi from server
-      console.log(args);
+      console.log("Random Code: " + args);
     });
 
-    let socketVerifiedResponse = this.socket.on("VerifiedCorrectly", (response) => response);
-    console.log("TEST     |     " + socketVerifiedResponse);
-    if (socketVerifiedResponse === true) {
-      //Random codi from each video
+    let socketVerifiedResponse;
+    this.socket.on("VerifiedCorrectly", (response) => {
+      console.log("GG   |   " + response);
+      socketVerifiedResponse = response;
+    });
+
+    return socketVerifiedResponse;
+  }
+
+  validateRequest(code: string) {
+    if (code === "true") {
       this.verified = true;
       console.log("this.verified: " , this.verified);
     }
-
   }
-
 
 }
