@@ -17,7 +17,7 @@ export class PlanaPrincipalComponent {
 
   constructor() {
 
-    this.socket = io("http://169.254.180.117:8888", { transports : ['websocket']});
+    this.socket = io("http://192.168.16.204:8888", { transports : ['websocket']});
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
@@ -25,6 +25,7 @@ export class PlanaPrincipalComponent {
 
     this.getVideoListServer();
     this.videoList.forEach(element => console.log(element.title));
+
   }
 
   getVideoListServer() {
@@ -72,6 +73,16 @@ export class PlanaPrincipalComponent {
       this.verified = true;
       console.log("this.verified: " , this.verified);
     }
+  }
+
+  mostrarPopup() {
+    document.getElementById('popup')!.style.display = 'block';
+    document.getElementById('overlay')!.style.display = 'block';
+  }
+
+  ocultarPopup() {
+    document.getElementById('popup')!.style.display = 'none';
+    document.getElementById('overlay')!.style.display = 'none';
   }
 
 }
