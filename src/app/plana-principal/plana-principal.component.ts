@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {io} from "socket.io-client";
 
 @Component({
@@ -17,7 +17,7 @@ export class PlanaPrincipalComponent {
 
   constructor() {
 
-    this.socket = io("http://192.168.16.204:8888", { transports : ['websocket']});
+    this.socket = io("http://169.254.180.117:8888", { transports : ['websocket']});
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
@@ -39,11 +39,14 @@ export class PlanaPrincipalComponent {
 
   async toggleAndRequestVideo(video: any) {
     video.opened = !video.opened;
-    let codiPeli = await this.requestCodiPeli();
+    this.requestCodiPeli();
+
+    let verificationResponse = await this.getVericficationPromise();
+    console.log("GVMEAFDKZHBMIAE=TZFD || ", verificationResponse);
     //TEST
     // this.verified = true;
     // this.getVideoFromServer()
-    this.validateRequest(codiPeli);
+    this.validateRequest(verificationResponse);
   }
 
   openVideoList() {
@@ -59,20 +62,23 @@ export class PlanaPrincipalComponent {
       console.log("Random Code: " + args);
     });
 
-    let socketVerifiedResponse;
-    this.socket.on("VerifiedCorrectly", (response) => {
-      console.log("GG   |   " + response);
-      socketVerifiedResponse = response;
-    });
-
-    return socketVerifiedResponse;
   }
 
-  validateRequest(code: string) {
-    if (code === "true") {
+  async getVericficationPromise() {
+    return new Promise(async (resolve, reject) => {
+      await this.socket.on("VerifiedCorrectly", (response) => {
+        if (response != undefined) resolve(response);
+        else reject("No s'ha esperat a la verificació del codi")
+      });
+    });
+  }
+
+  validateRequest(code: any) {
+    if (code) {
       this.verified = true;
       console.log("this.verified: " , this.verified);
-    }
+    } else
+      console.log("gg");
   }
 
   mostrarPopup() {
