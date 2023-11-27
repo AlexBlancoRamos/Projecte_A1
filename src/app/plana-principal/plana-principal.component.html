@@ -38,8 +38,8 @@
             </p>
             <ng-container *ngIf="video.opened">
               <ng-container *ngIf="!verified">
-                <img src="assets/loading.gif" alt="loading gif">
-
+                <img id="gif" src="assets/loading.gif" alt="loading gif">
+                <br>
                 <button (click)="mostrarPopup()">Mostrar Codigo</button>
 
                 <div id="popup" class="popup">

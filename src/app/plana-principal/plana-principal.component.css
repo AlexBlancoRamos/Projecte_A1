@@ -109,6 +109,11 @@ li{
   cursor: default;
 }
 
+#gif{
+  height: 50%;
+  width: 50%;
+}
+
 #titulos:hover {
   background-color: #BDBDBD; /* Cambia el color de fondo al pasar el ratón sobre el elemento */
 }
