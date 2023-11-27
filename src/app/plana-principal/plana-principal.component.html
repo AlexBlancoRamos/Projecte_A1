@@ -12,37 +12,49 @@
     </div>
   </div>
 
-  <ul id="register">
-    <li class="navega"><a routerLink="/registre" routerLinkActive="active" href="Registre">IniciarSessión</a></li>
-  </ul>
-
   <br>
 
 </header>
 
-<button id="test" (click)="openVideoList()">TEST</button>
+<button id="test" (click)="openVideoList()">Mostrar películas</button>
 
 <div style="display: flex; flex-direction: column; min-height: 80vh;">
   <div style="flex: 1; display: flex; flex-direction: column;">
     <div style="display: flex" *ngIf="showDiv">
       <table>
+        <p>Selecione la película que desea ver:</p>
         <tr>
           <ng-container *ngFor="let video of videoList; let i of videoList">
             <p (click)="toggleAndRequestVideo(video)">
               {{video.title.
               split('.')[0]
-              .replace('_', " ")
               .split('720p')[0]
-              .replace("-", " ")}}
+              .replaceAll("_", " ")
+              .replaceAll("–", " ")
+              .replaceAll("-", " ")
+              .replaceAll("_", " ")
+              }}
             </p>
             <ng-container *ngIf="video.opened">
               <ng-container *ngIf="!verified">
                 <img src="assets/loading.gif" alt="loading gif">
-                {{codi}}
+
+                <button (click)="mostrarPopup()">Mostrar Codigo</button>
+
+                <div id="popup" class="popup">
+                  <h4>Este es el codigo:</h4>
+                  <b>{{codi}}</b>
+                  <br>
+                  <button (click)="ocultarPopup()">Cerrar</button>
+                </div>
+
+                <div id="overlay" class="overlay"></div>
+
+
               </ng-container>
               <ng-container *ngIf="verified">
                 <video id="{{i}}" controls style="width: 700px; max-width: 100%">
-                  <source src="http://192.168.56.2:3000/{{video.title}}">
+                  <source src="http://192.168.16.204:3000/{{video.title}}">
                 </video>
               </ng-container>
             </ng-container>
