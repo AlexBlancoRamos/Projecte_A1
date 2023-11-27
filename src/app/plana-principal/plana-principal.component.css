@@ -102,6 +102,17 @@ li{
   z-index: 1000;
 }
 
+#titulos {
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: default;
+}
+
+#titulos:hover {
+  background-color: #BDBDBD; /* Cambia el color de fondo al pasar el ratón sobre el elemento */
+}
+
 .overlay {
   display: none;
   position: fixed;

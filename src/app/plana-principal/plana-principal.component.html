@@ -18,14 +18,15 @@
 
 <button id="test" (click)="openVideoList()">Mostrar películas</button>
 
+<p *ngIf="showDiv">Selecione la película que desea ver:</p>
+
 <div style="display: flex; flex-direction: column; min-height: 80vh;">
-  <div style="flex: 1; display: flex; flex-direction: column;">
+  <div style="flex: 1; display: flex; flex-direction: column; align-items: center">
     <div style="display: flex" *ngIf="showDiv">
       <table>
-        <p>Selecione la película que desea ver:</p>
         <tr>
           <ng-container *ngFor="let video of videoList; let i of videoList">
-            <p (click)="toggleAndRequestVideo(video)">
+            <p id="titulos"  (click)="toggleAndRequestVideo(video)">
               {{video.title.
               split('.')[0]
               .split('720p')[0]
