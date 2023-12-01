@@ -26,10 +26,10 @@
       <table>
         <tr>
           <ng-container *ngFor="let video of videoList; let i of videoList">
-            <p id="titulos"  (click)="toggleAndRequestVideo(video)">
-              {{video.title.
-              split('.')[0]
+            <p id="titulos" (click)="toggleAndRequestVideo(video)">
+              {{video.title.split('.')[0]
               .split('720p')[0]
+              .split('1080p')[0]
               .replaceAll("_", " ")
               .replaceAll("–", " ")
               .replaceAll("-", " ")
@@ -37,7 +37,7 @@
               }}
             </p>
             <ng-container *ngIf="video.opened">
-              <ng-container *ngIf="!verified">
+              <ng-container *ngIf="video.verified === undefined">
                 <img id="gif" src="assets/loading.gif" alt="loading gif">
                 <br>
                 <button (click)="mostrarPopup()">Mostrar Codigo</button>
@@ -46,17 +46,69 @@
                   <h4>Este es el codigo:</h4>
                   <b>{{codi}}</b>
                   <br>
-                  <button (click)="ocultarPopup()">Cerrar</button>
+                  <button (click)="ocultarPopup()">Cerrar</button><!-- ocultarPopup() -->
                 </div>
 
                 <div id="overlay" class="overlay"></div>
 
-
               </ng-container>
-              <ng-container *ngIf="verified">
-                <video id="{{i}}" controls style="width: 700px; max-width: 100%">
-                  <source src="http://169.254.180.117:3000/{{video.videoUrl}}">
-                </video>
+              <ng-container *ngIf="video.verified === true">
+                <div style="max-width: 800px;">
+                  <div id="verifyDiv"
+                       style="display: flex;
+                       max-height: 75px;
+                       background-color: #92d97c;
+                       border: #0e7000 1px solid;
+                       flex-direction: row;
+                       justify-content: center;
+                       align-items: center">
+                    <div id="verifyIconDiv" style="width: 10%; max-height: 100%; display: inline-block; text-align: center">
+                      <img src="favicon.ico" alt="check icon"/>
+                    </div>
+                    <div id="verifyMessage" style="width: 80%; display: inline-block">
+                      <h1 style="padding-left: 1em;">Alex Blanco no hace su trabajo y debería repetir curso</h1>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae enim molestie, pulvinar
+                        quam accumsan, facilisis enim. Proin sit amet mollis turpis. Donec diam odio, convallis sed
+                        gravida a, tempus nec augue. Nullam commodo, sapien.
+                      </p>
+                    </div>
+                    <div style="width: 10%; display: inline-block; text-align: center">
+                      <img style="max-width: 30px; max-height: 30px" src="assets/Grey_close_x.svg.png" alt="cross icon">
+                    </div>
+                  </div>
+                  <video id="{{i}}" controls style="width: 700px; max-width: 100%; margin: 0 auto; display: block">
+                    <source src="http://169.254.180.117:3000/{{video.videoUrl}}">
+                  </video>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="video.verified === false">
+                <div id="verifyErrorDiv"
+                     style="max-width: 500px;
+                     max-height: 75px;
+                     background-color: #d07a7a;
+                     border: red 1px solid;
+                     display: flex;
+                     flex-direction: row;
+                     justify-content: center;
+                     align-items: center">
+                  <div id="verifyErrorIconDiv" style="max-width: 20%; max-height: 75px; display: flex">
+                    <img style="display: flex" src="favicon.ico" alt="error icon"/>
+                  </div>
+                  <div id="verifyErrorMessage" style="width: 60%; display: flex">
+                    <h1 style="padding-left: 1em;">hola</h1>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae enim molestie, pulvinar quam
+                      accumsan, facilisis enim. Proin sit amet mollis turpis. Donec diam odio, convallis sed gravida a,
+                      tempus nec augue. Nullam commodo, sapien vitae sodales sodales, nisi nibh mattis dui, non feugiat
+                      mauris diam ac erat.
+                    </p>
+                  </div>
+                  <div style="width: 20%; display: flex">
+                    <img src="assets/Grey_close_x.svg.png" alt="close icon">
+                  </div>
+                </div>
               </ng-container>
             </ng-container>
           </ng-container>
