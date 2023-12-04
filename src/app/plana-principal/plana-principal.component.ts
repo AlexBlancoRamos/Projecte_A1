@@ -17,7 +17,7 @@ export class PlanaPrincipalComponent {
 
   constructor() {
 
-    this.socket = io("http://169.254.180.117:8887", { transports : ['websocket'], key: 'angular-client' });
+    this.socket = io("http://169.254.180.117:8888", { transports : ['websocket']});
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
