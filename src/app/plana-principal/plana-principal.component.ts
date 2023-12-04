@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {io} from "socket.io-client";
 
 @Component({
@@ -11,70 +11,71 @@ export class PlanaPrincipalComponent {
   socket: any;
   videoList: any[] = [];
   opened: boolean = false;
-  verified: boolean = false;
+  verified: any = undefined;
   codi: string = "";
   showDiv = false;
 
   constructor() {
 
-    this.socket = io("http://192.168.56.2:8888", { transports : ['websocket']});
+    this.socket = io("http://169.254.180.117:8887", { transports : ['websocket'], key: 'angular-client' });
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
     });
+
+    this.socket.on("VideoList", (videoObj: any[]) => {
+      videoObj.forEach(element => {
+        this.videoList.push(element);
+      })
+    });
+
+    this.socket.on("CodiVideo", (args) => this.codi = args);
 
     this.getVideoListServer();
     this.videoList.forEach(element => console.log(element.title));
 
   }
 
+  // promisify(socketCallbackName: string, timeout?: number): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     this.socket.once(socketCallbackName, (args) => {
+  //       resolve(args);
+  //     });
+  //
+  //     if (!!timeout) {
+  //       setTimeout(() => {
+  //         this.socket.off(socketCallbackName);
+  //         reject();
+  //       }, timeout);
+  //     }
+  //   });
+  // }
+
   getVideoListServer() {
     this.socket.emit("RequestVideo", "");
-    this.socket.on("VideoList", (videoObj: any[]) => {
-      videoObj.forEach(element => {
-        this.videoList.push(element);
-      })
-    })
-  }
-
-  async toggleAndRequestVideo(video: any) {
-    video.opened = !video.opened;
-    let verificacionBoolean = await this.getServerVerification();
-    //TEST
-    // this.verified = true;
-    // this.getVideoFromServer()
-    this.validateRequest(verificacionBoolean);
   }
 
   openVideoList() {
     this.showDiv = !this.showDiv;
   }
 
+  async toggleAndRequestVideo(video: any) {
+    video.opened = !video.opened;
 
-  requestCodiPeli() {
     this.socket.emit("RequestVideoVerification", "Video requested");
 
-    this.socket.on("CodiVideo", (args: any) => {
-      this.codi = args; //Codi from server
-      console.log("Random Code: " + args);
+    this.socket.on("VerifiedCorrectly", (arg: boolean) => {
+      video.verified = arg;
     });
+
+    // await this.promisify("VerifiedCorrectly", 15 * 1000)
+    //   .then((args) => {
+    //     this.verified = args;
+    //     console.log(args);
+    //   })
+    //   .catch(() => alert('muy lento cabron'));
   }
 
-  getServerVerification(): Promise<boolean> {
-    return new Promise((resolve) => {
-      this.socket.on("VerifiedCorrectly", (response) => {
-        console.log("GG   |   " + response);
-        resolve(response);
-      });
-    });
-  }
-
-  validateRequest(socketVerifiedResponse: boolean) {
-    if (socketVerifiedResponse) {
-      this.verified = true;
-      console.log("this.verified: " , this.verified);
-    }
-  }
 
   mostrarPopup() {
     document.getElementById('popup')!.style.display = 'block';
