@@ -61,13 +61,15 @@ export class PlanaPrincipalComponent {
         this.resetearProgreso();
       }, 10000);
 
-      const interval = 500;
+      const interval = 100;
 
-      const updateProgress = setInterval(() => {
+      let updateProgress = setInterval(() => {
         this.tiempoRestante -= interval;
 
         if (this.tiempoRestante <= 0) {
           clearInterval(updateProgress);
+          this.tiempoRestante = 10000;
+          this.progreso = 100;
           this.ngZone.run(() => {
             this.resetearProgreso();
           });

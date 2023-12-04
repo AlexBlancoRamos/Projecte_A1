@@ -201,7 +201,8 @@ footer {
   align-items: center
 }
 
-#verifyErrorDiv{
+#verifyErrorDiv {
+  position: relative; /* Add this line */
   margin-bottom: 3%;
   padding-bottom: 1%;
   max-height: 75px;
@@ -210,8 +211,15 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
+
+#progress {
+  position: absolute;
+  bottom: 0;
+  width: 100%; /* Set the width to 100% to span the entire width of the container */
+}
+
 
 footer p {
   text-align: center;
@@ -267,7 +275,41 @@ footer p {
   width: 40px;
   height: 40px;
 }
-#progress {
-  margin-top: 20px;
-  width: 800px;
+
+progress::-webkit-progress-value {
+  background-color: red;
 }
+
+progress::-moz-progress-bar {
+  background-color: red;
+}
+
+progress::-ms-fill {
+  background-color: red;
+}
+
+progress {
+  background-color: red;
+}
+
+
+#progress2::-webkit-progress-value {
+  background-color: green;
+}
+
+#progress2::-moz-progress-bar {
+  background-color: green;
+}
+
+#progress2::-ms-fill {
+  background-color: green;
+}
+
+#progress2 {
+  background-color: green;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+
