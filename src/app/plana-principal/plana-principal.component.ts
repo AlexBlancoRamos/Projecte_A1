@@ -17,7 +17,7 @@ export class PlanaPrincipalComponent {
 
   constructor() {
 
-    this.socket = io("http://169.254.180.117:8887", { transports : ['websocket'], key: 'angular-client' });
+    this.socket = io("http://192.168.16.200:8888", { transports : ['websocket'], key: 'angular-client' });
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
@@ -66,6 +66,16 @@ export class PlanaPrincipalComponent {
 
     this.socket.on("VerifiedCorrectly", (arg: boolean) => {
       video.verified = arg;
+
+      setTimeout(() => {
+        document.getElementById('verifyDiv')!.style.display ='none'
+      }, 10000);
+
+      setTimeout(() => {
+        document.getElementById('verifyErrorDiv')!.style.display ='none'
+      }, 10000);
+
+
     });
 
     // await this.promisify("VerifiedCorrectly", 15 * 1000)
