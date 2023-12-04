@@ -267,3 +267,7 @@ footer p {
   width: 40px;
   height: 40px;
 }
+#progress {
+  margin-top: 20px;
+  width: 800px;
+}

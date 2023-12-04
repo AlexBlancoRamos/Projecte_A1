@@ -53,13 +53,16 @@
 
               </ng-container>
               <ng-container *ngIf="video.verified === true">
-                <div style="max-width: 800px;" >
+                <div style="width: 800px;">
                   <div id="verifyDiv">
-                      <img id="imgcheck" src="assets/pngtree-green-check-mark-icon-on-transparent-background-png-image_8679061.png" alt="check icon"/>
+                    <img id="imgcheck"
+                         src="assets/pngtree-green-check-mark-icon-on-transparent-background-png-image_8679061.png"
+                         alt="check icon"/>
 
-                      <h1 id="textoOK">Todo a funcionado correctamente</h1>
+                    <h1 id="textoOK">Todo a funcionado correctamente</h1>
 
-                      <img (click)="cerrarMenasaje('verifyDiv')" id="imgCruz" src="assets/Grey_close_x.svg.png" alt="close icon">
+                    <img (click)="cerrarMenasaje('verifyDiv')" id="imgCruz" src="assets/Grey_close_x.svg.png"
+                         alt="close icon">
                   </div>
                   <video id="{{i}}" controls style="width: 700px; max-width: 100%; margin: 0 auto; display: block">
                     <source src="http://192.168.16.200:3000/{{video.videoUrl}}">
@@ -69,11 +72,13 @@
 
               <ng-container *ngIf="video.verified === false">
                 <div id="verifyErrorDiv">
-                    <img id="imgerror"  src="assets/error.svg.png" alt="error icon"/>
+                  <img id="imgerror" src="assets/error.svg.png" alt="error icon"/>
 
-                    <h1 id="textoError">Codigo incorrecto</h1>
+                  <h1 id="textoError">Codigo incorrecto</h1>
 
-                    <img (click)="cerrarMenasaje('verifyErrorDiv')" id="imgCruzError" src="assets/Grey_close_x.svg.png" alt="close icon" >
+                  <img (click)="cerrarMenasaje('verifyErrorDiv')" id="imgCruzError" src="assets/Grey_close_x.svg.png"
+                       alt="close icon">
+                  <progress id="progress" [value]="progreso" max="100" style="bottom: 0"></progress>
                 </div>
               </ng-container>
             </ng-container>
