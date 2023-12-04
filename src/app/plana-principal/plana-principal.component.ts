@@ -14,6 +14,8 @@ export class PlanaPrincipalComponent {
   verified: any = undefined;
   codi: string = "";
   showDiv = false;
+  progreso: number = 100; // Inicializamos al máximo (100%) para la barra llena
+  tiempoRestante: number = 10000;
 
   constructor() {
 
@@ -51,6 +53,7 @@ export class PlanaPrincipalComponent {
   //   });
   // }
 
+
   getVideoListServer() {
     this.socket.emit("RequestVideo", "");
   }
@@ -78,12 +81,17 @@ export class PlanaPrincipalComponent {
 
     });
 
+
     // await this.promisify("VerifiedCorrectly", 15 * 1000)
     //   .then((args) => {
     //     this.verified = args;
     //     console.log(args);
     //   })
     //   .catch(() => alert('muy lento cabron'));
+  }
+
+  cerrarMenasaje(nombre_div: string){
+    document.getElementById(nombre_div)!.style.display ='none'
   }
 
 
@@ -96,5 +104,4 @@ export class PlanaPrincipalComponent {
     document.getElementById('popup')!.style.display = 'none';
     document.getElementById('overlay')!.style.display = 'none';
   }
-
 }
