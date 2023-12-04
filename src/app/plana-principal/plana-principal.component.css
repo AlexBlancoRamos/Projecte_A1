@@ -190,6 +190,7 @@ footer {
 }
 
 #verifyDiv{
+  position: relative; /* Add this line */
   margin-bottom: 3%;
   padding-bottom: 1%;
   display: flex;
