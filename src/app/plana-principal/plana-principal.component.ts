@@ -60,13 +60,13 @@ export class PlanaPrincipalComponent {
     });
   }
 
-  getServerVerification(){
-    let socketVerifiedResponse;
-    this.socket.on("VerifiedCorrectly", (response) => {
-      console.log("GG   |   " + response);
-      socketVerifiedResponse = response;
+  getServerVerification(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.socket.on("VerifiedCorrectly", (response) => {
+        console.log("GG   |   " + response);
+        resolve(response);
+      });
     });
-    return socketVerifiedResponse;
   }
 
   validateRequest(socketVerifiedResponse: boolean) {
