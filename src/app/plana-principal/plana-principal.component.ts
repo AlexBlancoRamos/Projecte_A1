@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {io} from "socket.io-client";
+import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
+import { io } from 'socket.io-client';
 
 @Component({
   selector: 'app-plana-principal',
@@ -7,19 +7,17 @@ import {io} from "socket.io-client";
   styleUrls: ['./plana-principal.component.css']
 })
 export class PlanaPrincipalComponent {
-
   socket: any;
   videoList: any[] = [];
   opened: boolean = false;
   verified: any = undefined;
   codi: string = "";
   showDiv = false;
-  progreso: number = 100; // Inicializamos al máximo (100%) para la barra llena
+  progreso: number = 100;
   tiempoRestante: number = 10000;
 
-  constructor() {
-
-    this.socket = io("http://192.168.16.200:8888", { transports : ['websocket'], key: 'angular-client' });
+  constructor(private cdRef: ChangeDetectorRef, private ngZone: NgZone) {
+    this.socket = io("http://192.168.16.200:8888", { transports: ['websocket'], key: 'angular-client' });
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
@@ -35,24 +33,7 @@ export class PlanaPrincipalComponent {
 
     this.getVideoListServer();
     this.videoList.forEach(element => console.log(element.title));
-
   }
-
-  // promisify(socketCallbackName: string, timeout?: number): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     this.socket.once(socketCallbackName, (args) => {
-  //       resolve(args);
-  //     });
-  //
-  //     if (!!timeout) {
-  //       setTimeout(() => {
-  //         this.socket.off(socketCallbackName);
-  //         reject();
-  //       }, timeout);
-  //     }
-  //   });
-  // }
-
 
   getVideoListServer() {
     this.socket.emit("RequestVideo", "");
@@ -71,29 +52,41 @@ export class PlanaPrincipalComponent {
       video.verified = arg;
 
       setTimeout(() => {
-        document.getElementById('verifyDiv')!.style.display ='none'
+        document.getElementById('verifyDiv')!.style.display = 'none';
+        this.resetearProgreso();
       }, 10000);
 
       setTimeout(() => {
-        document.getElementById('verifyErrorDiv')!.style.display ='none'
+        document.getElementById('verifyErrorDiv')!.style.display = 'none';
+        this.resetearProgreso();
       }, 10000);
 
+      const interval = 500;
 
+      const updateProgress = setInterval(() => {
+        this.tiempoRestante -= interval;
+
+        if (this.tiempoRestante <= 0) {
+          clearInterval(updateProgress);
+          this.ngZone.run(() => {
+            this.resetearProgreso();
+          });
+        } else {
+          this.progreso = (this.tiempoRestante / 10000) * 100;
+          this.cdRef.detectChanges();
+        }
+      }, interval);
     });
-
-
-    // await this.promisify("VerifiedCorrectly", 15 * 1000)
-    //   .then((args) => {
-    //     this.verified = args;
-    //     console.log(args);
-    //   })
-    //   .catch(() => alert('muy lento cabron'));
   }
 
-  cerrarMenasaje(nombre_div: string){
-    document.getElementById(nombre_div)!.style.display ='none'
+  cerrarMenasaje(nombre_div: string) {
+    document.getElementById(nombre_div)!.style.display = 'none';
   }
 
+  resetearProgreso() {
+    this.progreso = 100;
+    this.tiempoRestante = 10000;
+  }
 
   mostrarPopup() {
     document.getElementById('popup')!.style.display = 'block';
@@ -105,3 +98,4 @@ export class PlanaPrincipalComponent {
     document.getElementById('overlay')!.style.display = 'none';
   }
 }
+
