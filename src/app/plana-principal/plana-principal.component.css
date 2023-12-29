@@ -171,11 +171,11 @@ li{
   margin-top: 27px;
 }
 
-#test {
+.moviesButton {
   margin-top: 1%;
 }
 
-#test:hover{
+.moviesButton:hover{
   background-color: #F7BE81;
 }
 

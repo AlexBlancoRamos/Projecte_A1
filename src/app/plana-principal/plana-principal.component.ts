@@ -9,6 +9,7 @@ import { io } from 'socket.io-client';
 export class PlanaPrincipalComponent {
   socket: any;
   videoList: any[] = [];
+  webAssets: any[] = [];
   opened: boolean = false;
   verified: any = undefined;
   codi: string = "";
@@ -19,12 +20,19 @@ export class PlanaPrincipalComponent {
   constructor(private cdRef: ChangeDetectorRef, private ngZone: NgZone) {
     this.socket = io("http://169.254.180.117:8888", { transports: ['websocket'], key: 'angular-client' });
 
+    // this.socket.emit("iniWebImages")
+    // this.socket.on("webImages", (imgObjArray: any[]) => {
+    //   imgObjArray.forEach(element => {
+    //     this.webAssets.push(element);
+    //   })
+    // })
+
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
     });
 
-    this.socket.on("VideoList", (videoObj: any[]) => {
-      videoObj.forEach(element => {
+    this.socket.on("VideoList", (videoObjArray: any[]) => {
+      videoObjArray.forEach(element => {
         this.videoList.push(element);
       })
     });

@@ -1,6 +1,6 @@
 <header>
 
-  <img id="logo" src="../../assets/fotos/logoooo.png">
+  <img data-cy="logo" id="logo" src="../../assets/fotos/logoooo.png">
 
   <div class="container">
     <div class="search-box">
@@ -16,17 +16,17 @@
 
 </header>
 
-<button id="test" (click)="openVideoList()">Mostrar películas</button>
+<button class="moviesButton" data-cy="movieButton" (click)="openVideoList()">Mostrar películas</button>
 
 <p *ngIf="showDiv">Selecione la película que desea ver:</p>
 
 <div style="display: flex; flex-direction: column; min-height: 80vh;">
   <div style="flex: 1; display: flex; flex-direction: column; align-items: center">
-    <div style="display: flex" *ngIf="showDiv">
-      <table>
+    <div style="display: flex" *ngIf="showDiv" id="tableDiv">
+      <table data-cy="movieTable">
         <tr>
           <ng-container *ngFor="let video of videoList; let i of videoList">
-            <p id="titulos" (click)="toggleAndRequestVideo(video)">
+            <p id="titulos" data-cy="movieTitle" (click)="toggleAndRequestVideo(video)">
               {{video.title.split('.')[0]
               .split('720p')[0]
               .split('1080p')[0]
@@ -38,7 +38,7 @@
             </p>
             <ng-container *ngIf="video.opened">
               <ng-container *ngIf="video.verified === undefined">
-                <img id="gif" src="assets/loading.gif" alt="loading gif">
+                <img id="gif" data-cy="placeholderGif" src="assets/loading.gif" alt="loading gif">
                 <br>
                 <button (click)="mostrarPopup()">Mostrar Codigo</button>
 
@@ -88,8 +88,8 @@
       </table>
     </div>
   </div>
-
-  <footer>
-    <p>Pagina creada por Ismael Naciri, Marc Rubio y Alex Blanco</p>
-  </footer>
 </div>
+
+<footer data-cy="webFooter">
+  <p>Pagina creada por Ismael Naciri, Marc Rubio y Alex Blanco</p>
+</footer>
