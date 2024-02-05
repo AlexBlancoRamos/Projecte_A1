@@ -7,12 +7,14 @@ import {RouterOutlet} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import {routing} from "./app.routing";
 import {FormsModule} from "@angular/forms";
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlanaPrincipalComponent
+    PlanaPrincipalComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
