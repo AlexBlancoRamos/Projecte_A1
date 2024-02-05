@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +8,13 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+  constructor(private router: Router) {
+  }
+
   usuario = { correo: '', contrasena: '' };
 
   enviarFormulario() {
+    this.router.navigate(['/inici']);
     console.log('Formulario enviado', this.usuario);
   }
 

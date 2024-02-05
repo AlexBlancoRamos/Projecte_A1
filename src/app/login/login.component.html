@@ -1,17 +1,19 @@
-<div id="formulariConteianer">
-  <span id="tituloForm">Login</span>
-  <form id="formulari" (ngSubmit)="enviarFormulario()" #formulario="ngForm">
+<div id=containerPage>
+  <div id="formulariConteianer">
+    <span id="tituloForm">Login</span>
+    <form id="formulari" (ngSubmit)="enviarFormulario()" #formulario="ngForm">
 
-      <label for="correo">Correu Electrònic:</label>
-      <input type="email" id="correo" name="correo" [(ngModel)]="usuario.correo" required>
+        <label id="firstlabel" for="correo">Correu Electrònic:</label>
+        <input type="email" id="correo" name="correo" [(ngModel)]="usuario.correo" required>
 
-      &nbsp;
+        &nbsp;
 
-      <label for="contrasena">Contrasenya:</label>
-      <input type="password" id="contrasena" name="contrasena" [(ngModel)]="usuario.contrasena" required>
+        <label for="contrasena">Contrasenya:</label>
+        <input type="password" id="contrasena" name="contrasena" [(ngModel)]="usuario.contrasena" required>
 
 
-    <button id="buttonForm" type="submit" [disabled]="!formulario.valid">Enviar</button>
-  </form>
+      <button id="buttonForm" type="submit" [disabled]="!formulario.valid">Enviar</button>
+    </form>
+  </div>
 </div>
 
