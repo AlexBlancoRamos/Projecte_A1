@@ -26,15 +26,16 @@ export class LoginComponent {
 
     const datos = {
       email: this.usuari,
-      passw: this.passLog
+      password: this.passLog
     };
 
     console.log({datos})
 
 
-    this.http.post<any>('http://localhost:3000/login', datos).subscribe(
+    this.http.post<any>('http://localhost:3000/api/auth', datos).subscribe(
       response => {
-        if (response.success) {
+        if (response) {
+          console.log(response)
           alert("Inicio de sesión exitoso");
           localStorage.setItem('email', this.usuari);
           this.router.navigate(['/inici']);
